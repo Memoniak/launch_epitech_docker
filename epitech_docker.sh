@@ -34,7 +34,7 @@ die() {
 }
 
 parse_params() {
-    param='.'
+    param=''
     while :; do
         case "${1-}" in
         -h)
@@ -52,7 +52,6 @@ parse_params() {
     done
 
     args=("$@")
-
     return 0
 }
 
@@ -68,6 +67,10 @@ if [[ "$(systemctl is-active docker)" = "inactive" ]]; then
     print "${CYAN}Starting docker${NOCOLOR}"
     sudo systemctl start docker
     print "${CYAN}Docker has been started...${NOCOLOR}"
+fi
+
+if [[ "${param:$i:1}" != '/' ]]; then
+    "${param:$i:1}" = '/'
 fi
 
 print "${ORANGE}Pulling epitech container${NOCOLOR}"
